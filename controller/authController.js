@@ -12,6 +12,10 @@ async function authStudent(req, res) {
     if(studentVerify.length) {
         // fetch all previous out pass of this student
         const prevPass = await Pass.find({rollNumber: studentVerify.username});
+        const passList = []
+        for(let i=0;prevPass.length;i++) {
+            const {rollNumber, } = prevPass[i];
+        }
         res.json({message: "Ok", status: 200, docs: prevPass});
     } else {
         res.json({message: "Failed", status: 404});
