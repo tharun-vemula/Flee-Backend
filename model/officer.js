@@ -12,4 +12,4 @@ const securitySchema = Schema({
   },
 });
 
-module.exports = mongoose.model('Security', securitySchema);
+module.exports = mongoose.model('Officer', securitySchema);

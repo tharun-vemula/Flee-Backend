@@ -1,4 +1,3 @@
-const { Timestamp } = require('bson');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -16,17 +15,17 @@ const passSchema = Schema(
       type: String,
       required: true,
     },
-    Date: {
+    date: {
       type: Date,
       required: true,
     },
     outTime: {
-      type: Timestamp,
+      type: Date,
       required: true,
     },
 
     inTime: {
-      type: Timestamp,
+      type: Date,
       required: true,
     },
     purpose: {
@@ -45,4 +44,4 @@ const passSchema = Schema(
   { timestamps: true },
 );
 
-module.exports = mongoose.model('Pass', passSchema);
+module.exports = mongoose.model('Doc', passSchema);
