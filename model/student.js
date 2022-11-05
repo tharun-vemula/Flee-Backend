@@ -10,12 +10,16 @@ const studentSchema = Schema({
     type: String,
     required: true,
   },
+  fullName: {
+    type: String,
+    required: true,
+  },
   noOfRemarks: {
     type: Number,
     required: true,
   },
   status: {
-    type: String,
+    type: Boolean,
     required: true,
   },
 });

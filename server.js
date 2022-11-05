@@ -1,7 +1,5 @@
 const express = require('express');
-const path = require('path');
 const mongoose = require('mongoose');
-const multer = require('multer');
 const bodyParser = require('body-parser');
 
 const MONGO_URI =
@@ -9,23 +7,12 @@ const MONGO_URI =
 
 const PORT = process.env.PORT || 3000;
 
-app.use(bodyParser.urlencoded({ extended: true }));
 const authRouter = require('./routes/auth');
 const passRouter = require('./routes/pass');
 
 const app = express();
 
-const fileStorage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads');
-  },
-  filename: (req, file, cb) => {
-    cb(null, Math.floor(Math.random() * 1000) + '-' + file.originalname);
-  },
-});
-
-app.use(multer({ storage: fileStorage }).single('file'));
-
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(authRouter);
 app.use(passRouter);
 

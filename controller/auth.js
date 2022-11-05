@@ -1,3 +1,6 @@
-exports.validateCredentials = (req, res) => {
-  res.send('Hi');
+const Student = require('../model/student');
+
+exports.validateCredentials = async (req, res) => {
+  const student = await Student.find();
+  res.send(student);
 };

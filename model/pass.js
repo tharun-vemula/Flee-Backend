@@ -1,4 +1,3 @@
-const { Timestamp } = require('bson');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -21,12 +20,12 @@ const passSchema = Schema(
       required: true,
     },
     outTime: {
-      type: Timestamp,
+      type: Date,
       required: true,
     },
 
     inTime: {
-      type: Timestamp,
+      type: Date,
       required: true,
     },
     purpose: {
