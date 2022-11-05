@@ -1,18 +1,21 @@
+// These models can be found in another branch
 const Student = require("../model/student");
 const Security = require("../model/security");
+const Pass = require('../model/pass');
 
-function authStudent(req, res) {
+async function authStudent(req, res) {
     /* student details */
     const username = req.body.name;
     const password = req.body.password;
 
-    const studentVerify = Student.findOne({username, password});
+    const studentVerify = await Student.findOne({username, password});
     if(studentVerify.length) {
-        res.send("Logged in");
-        return true;
+        // fetch all previous out pass of this student
+        const prevPass = await Pass.find({rollNumber: studentVerify.username});
+        res.json({message: "Ok", status: 200, docs: prevPass});
+    } else {
+        res.json({message: "Failed", status: 404});
     }
-    res.send("Invalid");
-    return false;
 }
 
 function authSecurity(req, res) {
