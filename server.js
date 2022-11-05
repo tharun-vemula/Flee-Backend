@@ -9,6 +9,7 @@ const MONGO_URI =
 
 const PORT = process.env.PORT || 3000;
 
+app.use(bodyParser.urlencoded({ extended: true }));
 const authRouter = require('./routes/auth');
 const passRouter = require('./routes/pass');
 
@@ -23,11 +24,10 @@ const fileStorage = multer.diskStorage({
   },
 });
 
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(multer({ storage: fileStorage }).single('file'));
 
-// app.use(authRouter);
-// app.use(passRouter);
+app.use(authRouter);
+app.use(passRouter);
 
 mongoose
   .connect(MONGO_URI)

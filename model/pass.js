@@ -37,11 +37,7 @@ const passSchema = Schema(
       type: String,
       required: true,
     },
-    inKey: {
-      type: String,
-      required: true,
-    },
-    outKey: {
+    approvedBy: {
       type: String,
       required: true,
     },
