@@ -1,4 +1,4 @@
-const Pass = require('../model/pass');
+const Doc = require('../model/doc');
 const student = require('../model/student');
 
 exports.createPass = async (req, res) => {
@@ -36,5 +36,18 @@ exports.createPass = async (req, res) => {
     }
   } catch (error) {
     console.log(error);
+  }
+};
+
+exports.prevPass = async (req, res) => {
+  const roll = req.query.id;
+  if (roll) {
+    const prevPass = await Doc.find(
+      { rollNumber: roll },
+      '-_id -rollNumber -name -status',
+    );
+    res.json({ message: 'ok', status: 200, data: prevPass });
+  } else {
+    res.json({ message: 'Invalid', status: 404 });
   }
 };

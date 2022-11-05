@@ -15,7 +15,7 @@ const passSchema = Schema(
       type: String,
       required: true,
     },
-    Date: {
+    date: {
       type: Date,
       required: true,
     },
@@ -44,4 +44,4 @@ const passSchema = Schema(
   { timestamps: true },
 );
 
-module.exports = mongoose.model('Pass', passSchema);
+module.exports = mongoose.model('Doc', passSchema);
