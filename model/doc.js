@@ -40,6 +40,18 @@ const passSchema = Schema(
       type: String,
       required: true,
     },
+
+    inVerified: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+
+    outVerified: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
   },
   { timestamps: true },
 );
