@@ -16,9 +16,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(authRouter);
 app.use(passRouter);
-app.get('/', (req, res) => {
-  res.send('hi');
-});
+
 mongoose
   .connect(MONGO_URI)
   .then((result) => {
