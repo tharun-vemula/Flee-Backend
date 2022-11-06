@@ -4,7 +4,7 @@ const Student = require('../model/student');
 exports.createPass = async (req, res) => {
   try {
     const {
-      username,
+      userName,
       phoneNumber,
       rollNumber,
       date,
@@ -13,19 +13,18 @@ exports.createPass = async (req, res) => {
       purpose,
     } = req.body;
 
-    const user = await Student.findOne({ username: username });
+    const user = await Student.findOne({ rollNumber: rollNumber });
 
-    if (user[0].noOfRemarks < 3) {
-      const pass = new Pass({
-        username,
+    if (user.noOfRemarks < 3) {
+      const pass = new Doc({
+        userName,
         rollNumber,
         phoneNumber,
-        date,
+        date: new Date(date),
         inTime,
         outTime,
         purpose,
       });
-
       await pass.save();
       res.json({ message: 'OutPass Created', status: 200 });
     } else {
@@ -53,12 +52,7 @@ exports.prevPass = async (req, res) => {
 };
 
 exports.getOutgoing = async (req, res) => {
-  // const time = new Date();
-  // const Y = time.getFullYear();
-  // const M = time.getMonth() + 1;
-  // const D = time.getDate();
-  // const timeString = Y + '-' + M + '-' + D;
-  const timeString = '2022-2-10';
+  const timeString = req.query.date;
   const docs = await Doc.find({ date: { $lte: timeString } });
   res.json({ message: 'ok', status: 200, data: docs });
 };

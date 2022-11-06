@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const passSchema = Schema(
   {
-    name: {
+    userName: {
       type: String,
       required: true,
     },
@@ -20,12 +20,12 @@ const passSchema = Schema(
       required: true,
     },
     outTime: {
-      type: Date,
+      type: String,
       required: true,
     },
 
     inTime: {
-      type: Date,
+      type: String,
       required: true,
     },
     purpose: {
@@ -35,10 +35,12 @@ const passSchema = Schema(
     status: {
       type: String,
       required: true,
+      default: 'To be verified',
     },
     approvedBy: {
       type: String,
       required: true,
+      default: 'Security',
     },
 
     inVerified: {
