@@ -8,6 +8,8 @@ exports.createPass = async (req, res) => {
       phoneNumber,
       rollNumber,
       date,
+      month,
+      year,
       inTime,
       outTime,
       purpose,
@@ -20,7 +22,9 @@ exports.createPass = async (req, res) => {
         userName,
         rollNumber,
         phoneNumber,
-        date: new Date(date),
+        date,
+        month,
+        year,
         inTime,
         outTime,
         purpose,
@@ -43,7 +47,7 @@ exports.prevPass = async (req, res) => {
   if (roll) {
     const prevPass = await Doc.find(
       { rollNumber: roll },
-      '-_id -rollNumber -name -status',
+      '-_id -rollNumber -userName -phoneNumber',
     );
     res.json({ message: 'ok', status: 200, data: prevPass });
   } else {
@@ -52,25 +56,37 @@ exports.prevPass = async (req, res) => {
 };
 
 exports.getOutgoing = async (req, res) => {
-  const timeString = req.query.date;
-  const docs = await Doc.find({ date: { $lte: timeString } });
+  const date = req.query.date;
+  const month = req.query.month;
+  const year = req.query.year;
+
+  const docs = await Doc.find({
+    date: date,
+    month: month,
+    year: year,
+  });
   res.json({ message: 'ok', status: 200, data: docs });
 };
 
 exports.verifyPass = async (req, res) => {
-  const timeString = '2022-2-10';
-  const rollNumber = req.params.id;
+  const date = req.query.date;
+  const month = req.query.month;
+  const year = req.query.year;
+
+  const rollNumber = req.query.id;
   const filter = {
     rollNumber,
-    date: { $lte: timeString },
+    date: date,
+    month: month,
+    year: year,
   };
-  if (req.params.type === 'out') {
-    const update = { outVerified: true };
-    const resp = await Doc.findOneAndUpdate(filter, update);
+  if (req.query.type === 'out') {
+    const update = { outVerified: true, status: 'Verified' };
+    const resp = await Doc.findOneAndUpdate(filter, update, { new: true });
     res.json({ message: 'ok', status: 200, data: resp });
-  } else if (req.params.type === 'in') {
-    const update = { inVerified: true };
-    const resp = await Doc.findOneAndUpdate(filter, update);
+  } else if (req.query.type === 'in') {
+    const update = { inVerified: true, status: 'Outdated' };
+    const resp = await Doc.findOneAndUpdate(filter, update, { new: true });
     res.json({ message: 'ok', status: 200, data: resp });
   }
 };

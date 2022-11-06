@@ -10,6 +10,10 @@ const securitySchema = Schema({
     type: String,
     required: true,
   },
+  fullName: {
+    type: String,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model('Officer', securitySchema);

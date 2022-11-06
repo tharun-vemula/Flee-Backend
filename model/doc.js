@@ -16,7 +16,15 @@ const passSchema = Schema(
       required: true,
     },
     date: {
-      type: Date,
+      type: String,
+      required: true,
+    },
+    month: {
+      type: String,
+      required: true,
+    },
+    year: {
+      type: String,
       required: true,
     },
     outTime: {

@@ -8,7 +8,7 @@ async function authStudent(req, res) {
 
   const studentVerify = await Student.findOne(
     { rollNumber, password },
-    'rollNumber fullName -_id',
+    'rollNumber fullName -_id -password',
   );
   if (studentVerify) {
     res.json({ message: 'Ok', status: 200, data: studentVerify });
@@ -19,14 +19,14 @@ async function authStudent(req, res) {
 
 async function authSecurity(req, res) {
   /* Security details */
-  const rollNumber = req.body.rollNumber;
+  const username = req.body.userName;
   const password = req.body.password;
 
   const officerVerify = await Officer.findOne(
-    { rollNumber, password },
-    'rollNumber fullName -_id',
+    { username, password },
+    'username fullName -_id -password',
   );
-  if (studentVerify) {
+  if (officerVerify) {
     res.json({ message: 'Ok', status: 200, data: officerVerify });
   } else {
     res.json({ message: 'Failed', status: 404 });
