@@ -20,7 +20,7 @@ app.use(passRouter);
 mongoose
   .connect(MONGO_URI)
   .then((result) => {
-    app.listen(PORT, '172.16.221.156', (req, res) => {
+    app.listen(PORT, (req, res) => {
       console.log('Running');
     });
   })
