@@ -16,13 +16,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(authRouter);
 app.use(passRouter);
-app.get('/', (req, res) => {
-  res.send('hi');
-});
+
 mongoose
   .connect(MONGO_URI)
   .then((result) => {
-    app.listen(PORT, '172.16.221.156', (req, res) => {
+    app.listen(PORT, (req, res) => {
       console.log('Running');
     });
   })
